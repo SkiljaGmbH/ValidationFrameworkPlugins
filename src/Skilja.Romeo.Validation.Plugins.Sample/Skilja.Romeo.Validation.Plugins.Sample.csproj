@@ -14,7 +14,7 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Skilja.Romeo.Validation.Interfaces" Version="5.0.0" />
-    <PackageReference Include="Skilja.Romeo.Validation" Version="5.0.0" />
+    <PackageReference Include="Skilja.Romeo.Validation.Interfaces" Version="6.2.0" />
+    <PackageReference Include="Skilja.Romeo.Validation" Version="6.2.0" />
   </ItemGroup>
 </Project>

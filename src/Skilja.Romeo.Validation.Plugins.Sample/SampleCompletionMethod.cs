@@ -14,6 +14,8 @@ namespace Skilja.Romeo.Validation.Plugins.Sample
         /// <paramref name="validatable"/> is the field (or table, row or cell) that is currently being validated.
         /// GetValidatableValue("fieldname") gets the text value of a given field
         /// SetValidatableValue("fieldname", "newTextValue") sets the text value of a given field
+        /// SetValidatableValueWithSource("fieldname", "newTextValue", "source") sets the text value
+        ///         of a given field and fills the CompletionState with the source information
         /// GetValidatableValues("cellName"), gets all cells of a given name, so you'd get all rows.
         /// </summary>
         /// <param name="validatable"></param>
@@ -24,8 +26,12 @@ namespace Skilja.Romeo.Validation.Plugins.Sample
             // get the current text value of a field (in this sample, the first parameter specifies the first field to fetch)
             var fieldTextValue = base.GetValidatableValue(completionParameters[0]);
             var fieldTextValue2 = base.GetValidatableValue("myFieldName2");
+
+            // this is the default patter for the CompletionState source name
+            var sourceName = CompletionSourceNameGenerator.GetName(Definition.Name, nameof(SampleCompletionMethod));
+
             // set the text value of fieldToSet
-            SetValidatableValue("fieldToSet", fieldTextValue + fieldTextValue2);
+            SetValidatableValueWithSource("fieldToSet", fieldTextValue + fieldTextValue2, sourceName);
 
             WorkingWithTables(validatable, false);
 
@@ -47,7 +53,7 @@ namespace Skilja.Romeo.Validation.Plugins.Sample
                     // Read the content.  
                     string responseFromServer = reader.ReadToEnd();
                     // set the content of another field to the web requests response.
-                    SetValidatableValue(completionParameters[0], responseFromServer);
+                    SetValidatableValueWithSource(completionParameters[0], responseFromServer, sourceName);
                     return Task.FromResult(true);
                 }
             }
